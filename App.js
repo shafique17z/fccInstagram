@@ -8,12 +8,12 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    //The whole app needs to be inside a navigation container which manages navigation b/w routes
+    // This creates a navigation container that wraps your app's screens and provides navigation context to all child components.
     <NavigationContainer>
-      {/* Inside navigation container we will use Stack Navigation as I have previously done */}
+      {/* Inside navigation container we will use Stack Navigators */}
       <Stack.Navigator initialRouteName="Landing">
-        {/* This will be our initial or first screen in the Stack */}
-        <Stack.Screen name="Screen" component={LandingScreen}/>
+        {/* This will be our initial or first screen of our app hence the name Landing! */}
+        <Stack.Screen name="Landing" component={LandingScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
