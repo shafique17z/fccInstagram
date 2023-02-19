@@ -1,37 +1,29 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { auth } from "../../config/firebase";
 
-function Register() {
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleRegister() {
+  async function handleLogin() {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
       const { user } = userCredential;
-      console.log("User registered successfully:\n", user);
+      console.log("User signed in successfully:", user);
     } catch (error) {
-      console.log("Error registering user:\n", error);
+      console.log("Error signing in user:", error);
     }
   }
 
   return (
     <View>
-      <TextInput placeholder="Full Name" value={name} onChangeText={setName} />
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
       <TextInput
         placeholder="Email"
         value={email}
@@ -44,9 +36,9 @@ function Register() {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Login" onPress={handleLogin} />
     </View>
   );
 }
 
-export default Register;
+export default Login;
