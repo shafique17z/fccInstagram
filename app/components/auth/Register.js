@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import React, { useState } from "react";
+import { View, TextInput, Button } from "react-native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { auth } from "../../../App";
 
 function Register() {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  function handleRegister() {
-    // perform registration logic with name, email, and password -- May be we can use Parse to manage user registration
+  async function handleRegister() {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
+      console.log('User registered successfully:', user);
+    } catch (error) {
+      console.log('Error registering user:', error);
+    }
   }
 
   return (
     <View>
-      <TextInput
-        placeholder="Full Name"
-        value={name}
-        onChangeText={setName}
-      />
+      <TextInput placeholder="Full Name" value={name} onChangeText={setName} />
       <TextInput
         placeholder="Username"
         value={username}

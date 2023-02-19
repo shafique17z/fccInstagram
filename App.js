@@ -2,8 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingScreen from "./app/components/auth/Landing";
-import Constants from "expo-constants";
+import RegisterScreen from "./app/components/auth/Register";
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAHUZIsTXn2wUQKfZ-y_VIvrh6ai7nkPWM",
@@ -18,6 +19,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+export { auth }
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -28,6 +34,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Landing">
         {/* This will be our initial or first screen of our app hence the name Landing! */}
         <Stack.Screen name="Landing" component={LandingScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
